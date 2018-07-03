@@ -11,14 +11,23 @@ if __name__ == "__main__":
         print('Could not open', sys.argv[1])
         exit(0)
 
-tokens = {}
-grammar = {}
-
+states = {}
+symbols = {}
 lines = data.read().splitlines()
-tokenteste = []
+initialState = 0
+state = 64
 
-for line in lines:
-    if line[:0] != '<':
-        tokenteste = line
-
-print(tokenteste)
+for i in range(0, len(lines)):
+    for j in range(0, len(lines[i])):
+        if lines[i][0] != '<':                      #checks if it's a token or grammar
+            if not initialState:
+                states['S'] = {}
+                state+= 1
+                initialState = 1
+                states['S'].setdefault(lines[i][j],[]).append(chr(state))
+                states[chr(state)] = {}
+            else:
+                states[chr(state)].setdefault(lines[i][j],[]).append(chr(state+1))
+                states[chr(state+1)] = {}
+                state +=1
+    initialState = 0
