@@ -1,4 +1,5 @@
 import numpy as np
+import finiteAutomata as lfa
 import sys
 
 if __name__ == "__main__":
@@ -42,7 +43,5 @@ for i in range(0, len(lines)):                          #reads until the end of 
             else:
                 states[inputState].setdefault(None,[]).append('ε')
 
-#prints the ordered states
 print("Non-Deterministic Finite Automata:\n")
-for key, value in sorted(states.items()):
-    print("{} : {}".format(key, value))
+lfa.orderedStates(states)
