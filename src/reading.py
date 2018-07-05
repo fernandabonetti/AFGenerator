@@ -1,4 +1,4 @@
-import numpy as np
+#import numpy as np
 import finiteAutomata as lfa
 import sys
 
@@ -14,7 +14,6 @@ if __name__ == "__main__":
 
 states = {}
 lines = data.read().splitlines()
-print(lines)
 lines = list(filter(lambda a: a != '', lines))
 initialState = 0
 state = 64
@@ -26,10 +25,6 @@ def check(state):
         state+=2
     else:
         state+=1
-        '''
-        if state not in states:
-            states[chr(state)] = {}
-        '''
     return state
 
 # Creates the finite automata structure
@@ -43,28 +38,34 @@ for i in range(0, len(lines)):                          #reads until the end of 
                 states[chr(state)] = {}
             else:
                 state = check(state)
-                states[chr(state-1)].setdefault(lines[i][j],[]).append(chr(state))
+                if state == 84:
+                    states[chr(state-2)].setdefault(lines[i][j],[]).append(chr(state))
+                else:
+                    states[chr(state-1)].setdefault(lines[i][j],[]).append(chr(state))
                 states[chr(state)] = {}
         initialState = 0
     else:                                        # Inserting the grammars
         rule = lines[i].replace(' ::= ', ' | ').split(' | ')
         if rule[0][1] == 'S':
-            #state = check(state)
+            createState = 0
             inputState = rule[0][1]
             for m in range(1, len(rule)):
                 if rule[m][0] != 'ε':
+                    if rule[0][1] != rule [m][1]:
+                        createState = 1
                     states[inputState].setdefault(rule[m][0],[]).append(chr(state+1))
                 else:
                     states[inputState].setdefault(None,[]).append('ε')
+            if createState == 1:
+                state = check(state)
+                states[chr(state)]={}
         else:
-            print(states)
-            state = check(state) #u
-            print(chr(state))
-            inputState = chr(state) #u
+            inputState = chr(state)
             for m in range(1, len(rule)):
                 if rule[m][0] != 'ε':
-                    if rule[0][1] != rule[m][1]:#checa se é estado atual
-                        states[chr(state)]={}#senão, a gente cria atual
+                    if rule[0][1] != rule[m][2]:
+                        state = check(state)
+                        states[chr(state)]={}
                     states[inputState].setdefault(rule[m][0],[]).append(chr(state))
                 else:
                     states[inputState].setdefault(None,[]).append('ε')
