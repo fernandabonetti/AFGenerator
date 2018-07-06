@@ -1,4 +1,3 @@
-#import numpy as np
 import finiteAutomata as lfa
 import sys
 
@@ -44,9 +43,9 @@ for i in range(0, len(lines)):                          #reads until the end of 
                     states[chr(state-1)].setdefault(lines[i][j],[]).append(chr(state))
                 states[chr(state)] = {}
         initialState = 0
-    else:                                        # Inserting the grammars
-        rule = lines[i].replace(' ::= ', ' | ').split(' | ')
-        if rule[0][1] == 'S':
+    else:                                             # Inserting the grammars
+        rule = lines[i].replace(' ::= ', ' | ').split(' | ') #remove useless symbols from each grammar rule
+        if rule[0][1] == 'S':                                #checks if it is the initial state 's'
             createState = 0
             inputState = rule[0][1]
             for m in range(1, len(rule)):
@@ -74,3 +73,5 @@ for i in range(0, len(lines)):                          #reads until the end of 
 print("Non-Deterministic Finite Automata:\n")
 lfa.orderedStates(states)
 lfa.determinize(states)
+print("Determinized automata")
+lfa.orderedStates(states)
