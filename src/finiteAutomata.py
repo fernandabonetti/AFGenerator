@@ -14,7 +14,6 @@ def determinize(states):
                     states[newState] = {}                   #creates a new state to determinize
                     for l in range(0, len(value[symbol])):
                         if len(states[str(value[symbol][l])]) > 0: #if the state isnt empty
-                            print(states[str(value[symbol][l])])
                             for k, v in states[value[symbol][l]].items():
                                 for p in range(0, len(v)):
                                     states[newState].setdefault(k,[]).append(v[p])

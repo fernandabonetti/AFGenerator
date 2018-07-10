@@ -27,8 +27,8 @@ def check(state):
     return state
 
 # Creates the finite automata structure
-for i in range(0, len(lines)):                          #reads until the end of input
-    if lines[i][0] != "<":                              # Insert the language tokens
+for i in range(0, len(lines)):                          	#reads until the end of input
+    if lines[i][0] != "<":                              	# Insert the language tokens
         for j in range(0, len(lines[i])):
             if not initialState:
                 state = check(state)
@@ -43,7 +43,7 @@ for i in range(0, len(lines)):                          #reads until the end of 
                     states[chr(state-1)].setdefault(lines[i][j],[]).append(chr(state))
                 states[chr(state)] = {}
         initialState = 0
-    else:                                             # Inserting the grammars
+    else:                                             		 #Inserting the grammars
         rule = lines[i].replace(' ::= ', ' | ').split(' | ') #remove useless symbols from each grammar rule
         if rule[0][1] == 'S':                                #checks if it is the initial state 's'
             createState = 0
