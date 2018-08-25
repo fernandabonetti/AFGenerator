@@ -4,10 +4,3 @@ senao
 
 <S> ::= a<A> | e<A> | i<A> | o<A> | u<A>
 <A> ::= a<A> | e<A> | i<A> | o<A> | u<A> | ε
-
-if
-else
-
-<S> ::= c<A>
-<A> ::= a<B>
-<B> ::= t<A> | ε

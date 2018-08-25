@@ -54,7 +54,7 @@ for i in range(0, len(lines)):                          	#reads until the end of
                         createState = 1
                     states[inputState].setdefault(rule[m][0],[]).append(chr(state+1))
                 else:
-                    states[inputState].setdefault(None,[]).append('ε')
+                    states[inputState].setdefault('ε',[]).append('ε')
             if createState == 1:
                 state = check(state)
                 states[chr(state)]={}
@@ -67,11 +67,16 @@ for i in range(0, len(lines)):                          	#reads until the end of
                         states[chr(state)]={}
                     states[inputState].setdefault(rule[m][0],[]).append(chr(state))
                 else:
-                    states[inputState].setdefault(None,[]).append('ε')
+                    states[inputState].setdefault('ε',[]).append('ε')
 
-
-print("Non-Deterministic Finite Automata:\n")
+lfa.fillFinal(states)
 lfa.orderedStates(states)
+#states['ε'] = {}
 lfa.determinize(states)
 print("Determinized automata")
 lfa.orderedStates(states)
+#states['DD'] = {}
+#states['DD'].setdefault('PP',[]).append('JJ')
+#lfa.orderedStates(states)
+#lfa.removeUnreachable(states)
+#fa.orderedStates(states)
