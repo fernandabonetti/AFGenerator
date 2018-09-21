@@ -11,13 +11,13 @@ if __name__ == "__main__":
         print('Could not open', sys.argv[1])
         exit(0)
 
+
 states = {}
 lines = data.read().splitlines()
 lines = list(filter(lambda a: a != '', lines))
 initialState = 0
 state = 64
 states['S'] = {}
-
 
 def check(state):
     if state == 82:
@@ -75,8 +75,6 @@ lfa.orderedStates(states)
 lfa.determinize(states)
 print("Determinized automata")
 lfa.orderedStates(states)
-#states['DD'] = {}
-#states['DD'].setdefault('PP',[]).append('JJ')
 #lfa.orderedStates(states)
-#lfa.removeUnreachable(states)
-#fa.orderedStates(states)
+lfa.removeUnreachable(states)
+lfa.orderedStates(states)
