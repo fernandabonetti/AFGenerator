@@ -71,9 +71,8 @@ for i in range(0, len(lines)):                          	# reads until the end o
 
 lfa.fillFinal(states)
 lfa.orderedStates(states)
-#states['ε'] = {}
 lfa.determinize(states)
 print("Determinized automata")
-lfa.orderedStates(states)
 lfa.removeUnreachable(states)
+lfa.insertErrorState(states)
 lfa.orderedStates(states)

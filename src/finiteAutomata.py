@@ -65,3 +65,8 @@ def removeUnreachable(states):
             if isUnreachable(stateList, states, initialState, reachState, 0):
                 print("State {} is unreachable. It shall be removed!\n".format(reachState))
                 states.pop(reachState)
+
+def insertErrorState(states):
+    states['ERROR'] = {}
+    for symbol, state in states.items():
+        states[symbol].setdefault('err', []).append('ERROR')
