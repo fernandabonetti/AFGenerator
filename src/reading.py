@@ -27,7 +27,7 @@ def check(state):
     return state
 
 # Creates the finite automata structure
-for i in range(0, len(lines)):                          	#reads until the end of input
+for i in range(0, len(lines)):                          	# reads until the end of input
     if lines[i][0] != "<":                              	# Insert the language tokens
         for j in range(0, len(lines[i])):
             if not initialState:
@@ -75,6 +75,5 @@ lfa.orderedStates(states)
 lfa.determinize(states)
 print("Determinized automata")
 lfa.orderedStates(states)
-#lfa.orderedStates(states)
 lfa.removeUnreachable(states)
 lfa.orderedStates(states)
