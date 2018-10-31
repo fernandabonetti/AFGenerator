@@ -15,5 +15,5 @@ char
 =<
 !=
 
-<S> ::= a<A> | e<A> | s<A> | o<A> | n<A>
-<A> ::= a<A> | e<A> | s<A> | o<A> | n<A> |ε
+<S> ::= a<A> | e<A> | i<A> | o<A> | u<A>
+<A> ::= a<A> | e<A> | i<A> | o<A> | u<A> |ε
