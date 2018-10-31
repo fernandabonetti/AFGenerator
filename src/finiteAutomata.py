@@ -1,5 +1,3 @@
-import heapq
-
 def check(state):
     if state == 82:
         state+=2
