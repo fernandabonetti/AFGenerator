@@ -1,14 +1,19 @@
 if
 else
-while
-else if
->
-<
-=
-==
-!=
->=
-=<
+int
+float
+char
 (
 )
-;
+{
+}
++
+-
+=
+==
+=>
+=<
+!=
+
+<S> ::= a<A> | e<A> | s<A> | o<A> | n<A>
+<A> ::= a<A> | e<A> | s<A> | o<A> | n<A> |ε

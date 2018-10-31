@@ -11,7 +11,7 @@ def createAF(states, lines):
     initialState = 0
     state = 64
     states['S'] = {}
-    
+
     for i in range(0, len(lines)):                          	# reads until the end of input
         if lines[i][0] != "<":                              	# Insert the language tokens
             for j in range(0, len(lines[i])):
@@ -84,27 +84,12 @@ def determinize(states):
                     value[symbol] = [newState]
         m = len(states)                                     #update the size of the states structure
 
-#Check if a state is reachable by the initial state 'S'
-def isUnreachable(stateList, states, current, reachState, transitions):
-    lookupStates = []
-    if transitions > 100:
-        return True
-
-    #check if its reachable in the current state
-    if not any([reachState == state[0] for state in states[current].values()]):
-        for symbol, state in states[current].items():
-            if reachState not in state:
-                for st in state:
-                    if st not in lookupStates and st != 'ε':
-                        heapq.heappush(lookupStates, st)
-
-    #check  each of the children if it reaches
-    while(len(lookupStates) > 0):
-        new = heapq.heappop(lookupStates)
-        if not isUnreachable(stateList, states, new, reachState, transitions+1):
-            return False
-        else:
-            return True
+#creates list of reachable states
+def pushState(current,states,reachable):
+    for i in states[current].values():
+        if len(i) > 0 and i[0] not in reachable and i[0] != 'ε':
+            reachable.append(i[0])
+    return reachable
 
 
 #Remove the unreachable states, from the initial state
@@ -113,13 +98,16 @@ def removeUnreachable(states):
     nstates = len(states)
     stateList = list(sorted(states.keys()))
     stateList.remove('S')
+    reachable = []
+    reachable = pushState(initialState,states,reachable)
 
-    for i in range(0, len(stateList)):
-        reachState = stateList[i]
-        if not any([reachState == state[0] for state in states[initialState].values()]):
-            if isUnreachable(stateList, states, initialState, reachState, 0):
-                print("State {} is unreachable. It shall be removed!\n".format(reachState))
-                states.pop(reachState)
+    for i in reachable:
+        reachable = pushState(i, states, reachable)
+
+    for i in stateList:
+        if i not in reachable:
+            states.pop(i)
+
 
 def insertErrorState(states):
     states['ERROR'] = {}
