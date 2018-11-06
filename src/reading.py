@@ -1,5 +1,5 @@
 import finiteAutomata as lfa
-import lexic as al
+import Lexic as al
 import sys
 
 if __name__ == "__main__":
@@ -26,5 +26,4 @@ lfa.insertErrorState(states)
 lfa.orderedStates(states)
 
 #lexical analysis
-tokens = al.readFonte()
-al.recognize(tokens, states)
+output = al.Lexic(states)

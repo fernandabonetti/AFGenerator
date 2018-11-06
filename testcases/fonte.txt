@@ -1,1 +1,20 @@
+az
 int aio ;
+float oi
+char io
+aa = 2
+int aa
+int az
+aio = 1
+oi = 0.3
+
+if aio > 0
+  aio = aio + oi
+else
+    aio = aio - io
+
+if io == aio
+  if aa != oi
+    aa = 3
+
+if ii => aio & io =< aa | io != ii
