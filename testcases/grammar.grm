@@ -1,0 +1,12 @@
+"Start Symbol" = <S>
+Id = {Letter}+
+digit = {Digit}+
+
+ <S>::= <TYPE> 'Id' | if <OPLOG> <A> | <ATT> <S> | <>
+ <TYPE> ::= 'int' | 'float'| 'char'
+ <A>::= 'else' <S>
+ <ATT>::= 'Id' '=' <OP>
+ <OP>::= 'digit' | 'Id' | <OPMAT>
+ <OPMAT>::= 'Id' + <OP> | 'Id' '-' <OP> | 'Id' * <OP> | <>
+ <OPLOG>::= <COMP> '&' <COMP> | <COMP> '|' <COMP> | <COMP>
+ <COMP> ::= <OP> '>' <OP> | <OP> 'eq' <OP> | <OP> '!=' <OP>

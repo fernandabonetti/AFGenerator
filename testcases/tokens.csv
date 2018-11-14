@@ -2,10 +2,12 @@ if
 else
 int
 float
-chr
+char
 =
 +
 -
+*
+eq
 >
 !=
 &

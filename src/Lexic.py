@@ -27,8 +27,13 @@ class Lexic:
                     if i in self.states[current].keys():
                         current = self.states[current][i][0]
                     else:
-                        current = 'err'
-                        break
+                        print(len(token), i, current)
+                        if len(token) == 1 and i in self.states[current].keys():
+                                print(current)
+                                current = self.states[current][i][0]
+                        else :
+                            current = 'err'
+                            break
                 if current != 'err' and 'ε' in self.states[current].keys():
                     novo = Token(token, l+1, 'id', current, False)
                     self.TS.append(novo)
@@ -48,4 +53,4 @@ class Lexic:
         for t in self.TS:
             if t.erro == True:
                 print('erro léxico linha: ' + str(t.linha) + '  "'+ str(t.rotulo) + '"' )
-            t.printToken()
+            #t.printToken()

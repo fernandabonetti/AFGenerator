@@ -13,7 +13,7 @@ if aio > 0
 else
     aio = aio - io
 
-if io == aio
+if io eq aio
   if aa != oi
     aa = 3
 
