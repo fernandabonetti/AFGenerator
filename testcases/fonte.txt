@@ -1,10 +1,8 @@
-az
-int aio ;
+int aio
 float oi
 char io
 aa = 2
 int aa
-int az
 aio = 1
 oi = 0.3
 
@@ -16,5 +14,3 @@ else
 if io eq aio
   if aa != oi
     aa = 3
-
-if ii => aio & io =< aa | io != ii
