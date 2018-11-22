@@ -5,7 +5,7 @@ def check(state):
         state+=1
     return state
 
-def createAF(states, lines):
+def createAF(states, lines, reserved):
     initialState = 0
     state = 64
     states['S'] = {}
@@ -25,6 +25,7 @@ def createAF(states, lines):
                     else:
                         states[chr(state-1)].setdefault(lines[i][j],[]).append(chr(state))
                     states[chr(state)] = {}
+            reserved.append(lines[i])
             initialState = 0
         else:                                             		 #Inserting the grammars
             rule = lines[i].replace(' ::= ', ' | ').split(' | ') #remove useless symbols from each grammar rule
