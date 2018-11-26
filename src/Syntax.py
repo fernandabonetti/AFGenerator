@@ -34,7 +34,7 @@ class Syntax:
                     self.LALRTable[action.attrib['Index']][i.attrib['SymbolIndex']] = (i.attrib['Action'], i.attrib['Value'])
 
     def parseLALR(self):
-        tree = ET.parse('../testcases/LALRTable.xml')
+        tree = ET.parse('../testcases/JulianaDeJulho.xml')
         root = tree.getroot()
 
         print([(x.tag, x.attrib) for x in root]) # Lista os elementos filhos: nome e atributos
@@ -49,16 +49,54 @@ class Syntax:
     def syntaxAnalizer(self):
         stack = []
         stack.append('0')
-        #print(self.LALRTable)
-        print(self.productions)
-        for symbol in self.fita:
-            print(stack)
+        stateFita = 0 #localizacao do simbolo analisado
+        statePilha = -1
+        symbol = self.fita[stateFita] #symbol index
+        index = self.symbols[symbol][0]
+        action,value = self.LALRTable[stack[statePilha]][index]    
+        while action != '4':
+            symbol = self.fita[stateFita] #symbol index
             index = self.symbols[symbol][0]
-            action, value = self.LALRTable[stack[-1]][index]
+            action,value = self.LALRTable[stack[statePilha]][index]
+            print(action,value)
             if action == '1':
+                stack.append(index)
+                stack.append(value)
+                stateFita += 1
+            elif action == '2':
+                #desempilha o dobro do tamanho da qtd produções
+                 prod, size = self.productions[value]
+                 size = int(size)*2
+                 del stack[len(stack)-size:]
+                #empilha o nome da producao reduzida + o local indicado 
+                 stack.append(prod)
+                 statePilha = -2
+                 action,value = self.LALRTable[stack[statePilha]][stack[-1]]
+                 if action == '3': #salto
+                    stack.append(value)
+                    statePilha = -1
+            elif action == '4':
+                print('ACEITA')
+
+        '''for symbol in self.fita:
+            print(stack)
+            print(symbol)
+            index = self.symbols[symbol][0]
+            #action, value = self.LALRTable[stack[-1]][index]
+            #print(action,value)
+            print(index)
+            if action == '1':
+                stack.append(index)
                 stack.append(value)
             elif action == '2':
                 prod, size = self.productions[value]
                 size = int(size) * 2
-                del stack[len(stack)-size:-1]
-                print(stack)
+                del stack[len(stack)-size:]
+                ac, salto = self.LALRTable[stack[-1]][prod]
+                print('pilha depois de eliminada',stack)
+                print(ac,salto)    
+                stack.append(prod)
+                stack.append(salto)
+                action, value = self.LALRTable[stack[-1]][index]
+               '''        
+
