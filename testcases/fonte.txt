@@ -6,11 +6,13 @@ int aa
 aio = 1
 oi = 0.3
 
-if aio > 0
+if aio > 0 {
   aio = aio + oi
-else
+} else {
     aio = aio - io
-
-if io eq aio
-  if aa != oi
+}
+if io eq aio {
+  if aa != oi {
     aa = 3
+  }
+}
