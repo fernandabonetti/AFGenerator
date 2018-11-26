@@ -2,9 +2,10 @@
 Id = {Letter}+
 digit = {Digit}+
 
- <S>::= <TYPE> 'Id' <S> | 'if' <OPLOG> <S> <A> | <ATT> <S> | <>
+ <S>::= <TYPE> 'Id' <S> | 'if' <OPLOG>'{' <CONT> '}' <ELSE> <S> | <ATT> <S> | <>
  <TYPE> ::= 'int' | 'float'| 'char'
- <A>::= 'else' <S>
+ <ELSE>::= 'else {' <CONT> '}' | <>
+ <CONT>::=  <ATT> <S> | <TYPE> 'Id' <S> | <OPMAT> <S> | 'if' <OPLOG> '{' <CONT> '}' <S>
  <ATT>::= 'Id' '=' <OP>
  <OP>::= 'digit' | 'Id' | <OPMAT>
  <OPMAT>::= 'Id' '+' <OP> | 'Id' '-' <OP> | 'Id' '*' <OP> | <>
