@@ -34,7 +34,7 @@ class Syntax:
                     self.LALRTable[action.attrib['Index']][i.attrib['SymbolIndex']] = (i.attrib['Action'], i.attrib['Value'])
 
     def parseLALR(self):
-        tree = ET.parse('../testcases/JulianaDeJulho.xml')
+        tree = ET.parse('../testcases/LALRTable.xml')
         root = tree.getroot()
 
         print([(x.tag, x.attrib) for x in root]) # Lista os elementos filhos: nome e atributos
@@ -53,11 +53,12 @@ class Syntax:
         statePilha = -1
         symbol = self.fita[stateFita] #symbol index
         index = self.symbols[symbol][0]
-        action,value = self.LALRTable[stack[statePilha]][index]    
+        action,value = self.LALRTable[stack[statePilha]][index]
         while action != '4':
             symbol = self.fita[stateFita] #symbol index
             index = self.symbols[symbol][0]
-            action,value = self.LALRTable[stack[statePilha]][index]
+            print(self.LALRTable)
+            action, value = self.LALRTable[stack[statePilha]][index]
             print(action,value)
             if action == '1':
                 stack.append(index)
@@ -68,10 +69,10 @@ class Syntax:
                  prod, size = self.productions[value]
                  size = int(size)*2
                  del stack[len(stack)-size:]
-                #empilha o nome da producao reduzida + o local indicado 
+                #empilha o nome da producao reduzida + o local indicado
                  stack.append(prod)
                  statePilha = -2
-                 action,value = self.LALRTable[stack[statePilha]][stack[-1]]
+                 action, value = self.LALRTable[stack[statePilha]][stack[-1]]
                  if action == '3': #salto
                     stack.append(value)
                     statePilha = -1
@@ -94,9 +95,8 @@ class Syntax:
                 del stack[len(stack)-size:]
                 ac, salto = self.LALRTable[stack[-1]][prod]
                 print('pilha depois de eliminada',stack)
-                print(ac,salto)    
+                print(ac,salto)
                 stack.append(prod)
                 stack.append(salto)
                 action, value = self.LALRTable[stack[-1]][index]
-               '''        
-
+               '''
