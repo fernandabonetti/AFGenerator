@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 
+
 class Syntax:
     def __init__(self, TS):
         self.TS = TS
@@ -57,6 +58,8 @@ class Syntax:
             self.TS[stateFita].type = "%f"
         elif self.fita[stateFita-1] == 'char':
             self.TS[stateFita].type = "%c"
+        for i in self.TS:
+            i.printToken()
 
     def syntaxAnalizer(self):
         stack = []
