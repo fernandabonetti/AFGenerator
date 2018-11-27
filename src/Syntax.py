@@ -46,6 +46,18 @@ class Syntax:
         self.parseProd(mproductions)
         self.parseTable(mtable)
 
+    def findLine(self, index):
+        return self.TS[index].linha
+
+    def addTS(self, stateFita):
+        print("oi", self.fita)
+        if self.fita[stateFita-1] == 'int':
+            self.TS[stateFita].type = "%d"
+        elif self.fita[stateFita-1] == 'float':
+            self.TS[stateFita].type = "%f"
+        elif self.fita[stateFita-1] == 'char':
+            self.TS[stateFita].type = "%c"
+
     def syntaxAnalizer(self):
         stack = []
         stack.append('0')
@@ -53,13 +65,24 @@ class Syntax:
         statePilha = -1
         symbol = self.fita[stateFita] #symbol index
         index = self.symbols[symbol][0]
-        action,value = self.LALRTable[stack[statePilha]][index]
+
+        if index not in self.LALRTable[stack[statePilha]].keys():
+            print("Erro Sintático. Linha:", self.findLine(stateFita))
+            action = '5'
+        else:
+            action, value = self.LALRTable[stack[statePilha]][index]
+
         while action != '4':
             symbol = self.fita[stateFita] #symbol index
             index = self.symbols[symbol][0]
-            print(self.LALRTable)
-            action, value = self.LALRTable[stack[statePilha]][index]
-            print(action,value)
+            print(stack)
+            if index not in self.LALRTable[stack[statePilha]].keys():
+                print("Erro Sintático. Linha:", self.findLine(stateFita))
+                action = '5'
+                break
+            else:
+                action, value = self.LALRTable[stack[statePilha]][index]
+
             if action == '1':
                 stack.append(index)
                 stack.append(value)
@@ -73,30 +96,9 @@ class Syntax:
                  stack.append(prod)
                  statePilha = -2
                  action, value = self.LALRTable[stack[statePilha]][stack[-1]]
+                 self.addTS(stateFita)
                  if action == '3': #salto
                     stack.append(value)
                     statePilha = -1
             elif action == '4':
                 print('ACEITA')
-
-        '''for symbol in self.fita:
-            print(stack)
-            print(symbol)
-            index = self.symbols[symbol][0]
-            #action, value = self.LALRTable[stack[-1]][index]
-            #print(action,value)
-            print(index)
-            if action == '1':
-                stack.append(index)
-                stack.append(value)
-            elif action == '2':
-                prod, size = self.productions[value]
-                size = int(size) * 2
-                del stack[len(stack)-size:]
-                ac, salto = self.LALRTable[stack[-1]][prod]
-                print('pilha depois de eliminada',stack)
-                print(ac,salto)
-                stack.append(prod)
-                stack.append(salto)
-                action, value = self.LALRTable[stack[-1]][index]
-               '''

@@ -6,6 +6,7 @@ class Token:
         self.state = state
         self.erro = erro
         self.pointer = pointer
+        self.type = None
 
     def printToken(self):
         print(str(self.linha)+' '+self.rotulo+' '+self.id+' '+self.state+' '+str(self.erro)+ ' '+ str(self.pointer))

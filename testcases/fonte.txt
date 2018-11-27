@@ -1,18 +1,3 @@
-int aio
+int aio 
 float oi
 char io
-aa = 2
-int aa
-aio = 1
-oi = 0.3
-
-if aio > 0 {
-  aio = aio + oi
-} else {
-    aio = aio - io
-}
-if io eq aio {
-  if aa != oi {
-    aa = 3
-  }
-}
