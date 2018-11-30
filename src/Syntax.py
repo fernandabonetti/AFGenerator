@@ -8,6 +8,7 @@ class Syntax:
         self.symbols = {}
         self.LALRTable = {}
         self.productions = {}
+        self.result = False
         self.getFita()
         self.parseLALR()
         self.syntaxAnalizer()
@@ -51,7 +52,7 @@ class Syntax:
         return self.TS[index].linha
 
     def addTS(self, stateFita):
-        print("oi", self.fita)
+        #print("oi", self.fita)
         if self.fita[stateFita-1] == 'int':
             self.TS[stateFita].type = "%d"
         elif self.fita[stateFita-1] == 'float':
@@ -59,7 +60,8 @@ class Syntax:
         elif self.fita[stateFita-1] == 'char':
             self.TS[stateFita].type = "%c"
         for i in self.TS:
-            i.printToken()
+           if i.rotulo == self.TS[stateFita].rotulo:
+               i.type = self.TS[stateFita].type
 
     def syntaxAnalizer(self):
         stack = []
@@ -82,6 +84,7 @@ class Syntax:
             if index not in self.LALRTable[stack[statePilha]].keys():
                 print("Erro Sintático. Linha:", self.findLine(stateFita))
                 action = '5'
+                self.result = False
                 break
             else:
                 action, value = self.LALRTable[stack[statePilha]][index]
@@ -99,9 +102,15 @@ class Syntax:
                  stack.append(prod)
                  statePilha = -2
                  action, value = self.LALRTable[stack[statePilha]][stack[-1]]
+                 #adiciona para a verificação de tipo
                  self.addTS(stateFita)
                  if action == '3': #salto
                     stack.append(value)
                     statePilha = -1
             elif action == '4':
                 print('ACEITA')
+                self.result = True
+
+
+    def getResultAnalizer(self):
+        return self.result, self.TS

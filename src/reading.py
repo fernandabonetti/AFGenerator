@@ -1,6 +1,7 @@
 import finiteAutomata as lfa
 import Lexic as al
 import Syntax as syntax
+import Semantic as se
 import sys
 
 if __name__ == "__main__":
@@ -35,3 +36,8 @@ if output.getError() == True:
 else:
     syntaxInput = output.getTS()
     syntaxOutput = syntax.Syntax(syntaxInput)
+    result,semanthicInput = syntaxOutput.getResultAnalizer()
+    if result:
+        semanticOutput = se.Semanthic(semanthicInput)
+        semanticOutput.verificaTipo()
+        print('realiza acao semantica')
