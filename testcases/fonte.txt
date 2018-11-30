@@ -1,1 +1,10 @@
-int aio
+int aio 
+char a
+float ao
+int aii
+int aiu
+int aoo 
+aoo = aii + aiu
+aoo = a + ao
+
+
