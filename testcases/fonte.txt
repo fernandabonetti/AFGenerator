@@ -1,10 +1,7 @@
-int aio 
 char a
-float ao
-int aii
-int aiu
-int aoo 
-aoo = aii + aiu
-aoo = a + ao
-
-
+int aio aio = a + aio
+int a
+float aeio aeio = 16.5
+int e e = 5
+a = au - aio
+if a > a { a = i }

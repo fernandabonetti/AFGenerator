@@ -9,6 +9,7 @@ class Syntax:
         self.LALRTable = {}
         self.productions = {}
         self.result = False
+        self.varDec = []
         self.getFita()
         self.parseLALR()
         self.syntaxAnalizer()
@@ -39,7 +40,6 @@ class Syntax:
         tree = ET.parse('../testcases/LALRTable.xml')
         root = tree.getroot()
 
-        print([(x.tag, x.attrib) for x in root]) # Lista os elementos filhos: nome e atributos
         msymbols = root.iter('m_Symbol')
         mproductions = root.iter('m_Production')
         mtable = root.iter('LALRTable')
@@ -52,16 +52,31 @@ class Syntax:
         return self.TS[index].linha
 
     def addTS(self, stateFita):
-        #print("oi", self.fita)
+        dec = False
         if self.fita[stateFita-1] == 'int':
-            self.TS[stateFita].type = "%d"
+            if self.TS[stateFita].rotulo not in self.varDec:
+                self.varDec.append(self.TS[stateFita].rotulo)
+                self.TS[stateFita].type = "%d"
+            else:
+                dec = True
         elif self.fita[stateFita-1] == 'float':
-            self.TS[stateFita].type = "%f"
+            if self.TS[stateFita].rotulo not in self.varDec:
+                self.varDec.append(self.TS[stateFita].rotulo)
+                self.TS[stateFita].type = "%f"
+            else:
+                dec = True
         elif self.fita[stateFita-1] == 'char':
-            self.TS[stateFita].type = "%c"
+            if self.TS[stateFita].rotulo not in self.varDec:
+                self.varDec.append(self.TS[stateFita].rotulo)
+                self.TS[stateFita].type = "%c"
+            else:
+                dec = True
+        if dec:
+            print('SemanticError: variável: {} já declarada, linha: {}'.format(self.TS[stateFita].rotulo,self.TS[stateFita].linha))
+
         for i in self.TS:
-           if i.rotulo == self.TS[stateFita].rotulo:
-               i.type = self.TS[stateFita].type
+            if i.rotulo == self.TS[stateFita].rotulo:
+                i.type = self.TS[stateFita].type
 
     def syntaxAnalizer(self):
         stack = []
@@ -80,7 +95,6 @@ class Syntax:
         while action != '4':
             symbol = self.fita[stateFita] #symbol index
             index = self.symbols[symbol][0]
-            print(stack)
             if index not in self.LALRTable[stack[statePilha]].keys():
                 print("Erro Sintático. Linha:", self.findLine(stateFita))
                 action = '5'
@@ -108,7 +122,7 @@ class Syntax:
                     stack.append(value)
                     statePilha = -1
             elif action == '4':
-                print('ACEITA')
+                #print('ACEITA')
                 self.result = True
 
 

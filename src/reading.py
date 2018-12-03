@@ -21,13 +21,13 @@ lines = list(filter(lambda a: a != '', lines))
 
 # Creates the finite automata structure
 lfa.createAF(states, lines, reserved)
-print(reserved)
+#print(reserved)
 lfa.fillFinal(states)
 lfa.determinize(states)
-print("Determinized automata")
+#print("Determinized automata")
 lfa.removeUnreachable(states)
 lfa.insertErrorState(states)
-lfa.orderedStates(states)
+#lfa.orderedStates(states)
 
 #lexical analysis
 output = al.Lexic(states, reserved)
@@ -39,5 +39,5 @@ else:
     result,semanthicInput = syntaxOutput.getResultAnalizer()
     if result:
         semanticOutput = se.Semanthic(semanthicInput)
+        semanticOutput.declaraVar()
         semanticOutput.verificaTipo()
-        print('realiza acao semantica')
