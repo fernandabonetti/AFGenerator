@@ -1,6 +1,5 @@
 import xml.etree.ElementTree as ET
 
-
 class Syntax:
     def __init__(self, TS):
         self.TS = TS

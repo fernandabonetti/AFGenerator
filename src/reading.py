@@ -2,6 +2,7 @@ import finiteAutomata as lfa
 import Lexic as al
 import Syntax as syntax
 import Semantic as se
+import json
 import sys
 
 if __name__ == "__main__":
@@ -19,15 +20,15 @@ reserved = []
 lines = data.read().splitlines()
 lines = list(filter(lambda a: a != '', lines))
 
-# Creates the finite automata structure
+#Creates the finite automata structure
 lfa.createAF(states, lines, reserved)
-#print(reserved)
 lfa.fillFinal(states)
 lfa.determinize(states)
-#print("Determinized automata")
 lfa.removeUnreachable(states)
 lfa.insertErrorState(states)
-#lfa.orderedStates(states)
+
+with open('../testcases/automaton.json', 'w') as fp:
+    json.dump(states, fp,  ensure_ascii=False, sort_keys=False)
 
 #lexical analysis
 output = al.Lexic(states, reserved)

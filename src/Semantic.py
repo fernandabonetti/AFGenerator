@@ -1,7 +1,4 @@
-
-class Semanthic:
-
-
+class Semantic:
     def __init__(self,TS):
         self.TS = TS
 

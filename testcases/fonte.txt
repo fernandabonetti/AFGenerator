@@ -1,7 +1,9 @@
 char a
+char io
+if a eq io {
 int aio aio = a + aio
 int a
 float aeio aeio = 16.5
 int e e = 5
 a = au - aio
-if a > a { a = i }
+if a > a { a = i } 
